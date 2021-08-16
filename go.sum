@@ -711,6 +711,8 @@ github.com/streamingfast/shutter v1.5.0 h1:NpzDYzj0HVpSiDJVO/FFSL6QIK/YKOxY0gJAt
 github.com/streamingfast/shutter v1.5.0/go.mod h1:B/T6efqdeMGbGwjzPS1ToXzYZI4kDzI5/u4I+7qbjY8=
 github.com/streamingfast/sparkle v0.0.0-20210811203021-4a1a32359aa3 h1:uBWkauRmDvdt4GOp73r8tLEjA6pnDyqHNdwSvC624o0=
 github.com/streamingfast/sparkle v0.0.0-20210811203021-4a1a32359aa3/go.mod h1:z+ZcKH3/oBZDmKh+06QBVaxPbZyeUbnS9DNKq4Fb4Gk=
+github.com/streamingfast/sparkle v0.0.0-20210812171926-87db75ffc4c8 h1:Nyq1LVtLve18rHbSfmuFumtRCHbZISPfCFVTcwouqFQ=
+github.com/streamingfast/sparkle v0.0.0-20210812171926-87db75ffc4c8/go.mod h1:z+ZcKH3/oBZDmKh+06QBVaxPbZyeUbnS9DNKq4Fb4Gk=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/objx v0.1.1/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/objx v0.2.0/go.mod h1:qt09Ya8vawLte6SNmTgCsAVtYtaKzEcn8ATUoHMkEqE=

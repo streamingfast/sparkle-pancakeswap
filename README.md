@@ -1,5 +1,5 @@
 # StreamingFast Pancake Generated
-[![reference](https://img.shields.io/badge/godoc-reference-5272B4.svg?style=flat-square)](https://pkg.go.dev/github.com/streamingfast/pancake-generated-priv)
+[![reference](https://img.shields.io/badge/godoc-reference-5272B4.svg?style=flat-square)](https://pkg.go.dev/github.com/streamingfast/sparkle-pancakeswap)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 # Usage
@@ -25,7 +25,7 @@ Deploy it, as you would with normal subgraphs:
 
 Start the linear indexer:
 
-``` 
+```
 ./pancakeswap-exchange index namespace/target_name@VERSION
 ```
 
@@ -63,4 +63,3 @@ if you wish to contribute to this code base.
 ## License
 
 [Apache 2.0](LICENSE)
-

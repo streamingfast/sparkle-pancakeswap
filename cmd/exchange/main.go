@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/streamingfast/sparkle/cli"
 	"github.com/streamingfast/sparkle/subgraph"
-	"github.com/streamingfast/pancake-generated-priv/exchange"
+	"github.com/streamingfast/sparkle-pancakeswap/exchange"
 )
 
 func main() {

@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/streamingfast/sparkle/cli"
 	"github.com/streamingfast/sparkle/subgraph"
-	"github.com/streamingfast/pancake-generated-priv/prediction"
+	"github.com/streamingfast/sparkle-pancakeswap/prediction"
 )
 
 func main() {
