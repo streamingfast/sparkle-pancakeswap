@@ -1,0 +1,30 @@
+storeData:
+  - type: pair
+    entity:
+      id: "0x00"
+      blockRange: "[1,)"
+      name: token.0.symbol-token.1.symbol
+      token0: "0x00"
+      token1: "0x01"
+      reserve0: "1.00"
+      reserve1: "2.00"
+      trackedReserveBNB: "100"
+      timestamp: "123"
+  - type: pair
+    entity:
+      id: "0x16b9a82891338f9ba80e2d6970fdda79d1eb0dae"
+      vid: 1
+      blockRange: "[1,)"
+      name: "USDT-WBNB"
+      token0Price: "10.00"
+events:
+  - type: PairSyncEvent
+    event:
+      logAddress: "0x00" #pair address
+      reserve0: 100
+      reserve1: 200
+      block:
+        hash: "0x00"
+        number: 1
+      transaction:
+        hash: "0x00"

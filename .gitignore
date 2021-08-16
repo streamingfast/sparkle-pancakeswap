@@ -1,0 +1,15 @@
+.idea/
+.envrc
+secrets.go
+/.idea/
+/sparkle
+
+/localblocks
+/step*-v*
+/exported
+/entities
+/csvs
+.DS_Store
+
+/deploy/subgraph
+/deploy/exchange

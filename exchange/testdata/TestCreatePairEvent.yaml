@@ -1,0 +1,19 @@
+events:
+  - type: FactoryPairCreatedEvent
+    event:
+      logAddress: "0x00"
+      token0: "0x00"
+      token1: "0x01"
+      pair: "0x00"
+      block:
+        hash: "0x00"
+        number: 1
+      transaction:
+        hash: "0x00"
+expected:
+  - type: bundle
+    entity:
+      id: "1"
+      name: "BUSD-WBNB"
+      token1Price: "10.00"
+      reserve0: "0"
