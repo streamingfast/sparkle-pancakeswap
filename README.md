@@ -3,22 +3,50 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 # Usage
-```shell
-mkdir pancake-generated-priv
-cd pancake-generated-priv
-mkdir abis
-mkdir subgraph
-cp /:whatever/pancake-subgraph/abis/* abis
-cp /:whatever/pancake-subgraph/subgraphs/* subgraph
 
-sparkle codegen subgraph ./subgraph/subname.yaml github.com/streamingfast/pancake-generated-priv project/subname
+Build with:
+
+```bash
+
+go build -o pancakeswap-exchange ./cmd/exchange
+```
+
+Call the `graph-node` to create the deployment:
+
+```
+./pancakeswap-exchange create namespace/target_name    # create  a row in `subgraph` table (current_version = nil, previsou_version = nil)
+```
+
+Deploy it, as you would with normal subgraphs:
+
+```
+./pancakeswap-exchange deploy namespace/target_name    # create  a row in `subgraph_deployment` &`subgraph_version` & IPS upload & `deployment_schemas` & Update `subgraph` table current_version, previous_version (MAYBE)
+```
+
+Start the linear indexer:
+
+``` 
+./pancakeswap-exchange index namespace/target_name@VERSION
+```
+
+You will find the `VERSION` printed when you `deploy` the subgraph.
+
+
+
+## Updating `sparkle`
+
+Generate using `sparkle` (see https://github.com/streamingfast/sparkle)
+
+```shell
+sparkle codegen ./subgraph/exchange.yaml github.com/streamingfast/sparkle-pancakeswap
 go mod tidy
 ```
 
 To init a database
 ```shell
-    go install ./cmd/subgraph
-    subgraph deploy --psql-dsn="postgresql://postgres:@localhost:5432/YOUR_DATABASE?enable_incremental_sort=off&sslmode=disable" project/subgraph
+go run ./cmd/exchange -- deploy \
+   --psql-dsn="postgresql://postgres:@localhost:5432/YOUR_DATABASE?enable_incremental_sort=off&sslmode=disable" \
+   project/subgraph
 ```
 
 ## Contributing
