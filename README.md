@@ -187,6 +187,8 @@ The following duration is the worst case of the Entities, provided you have more
 
 * **create-indexes** duration: 4 hours
 
+Yes, the original was half-way through after 2 months.
+
 
 ## Updating `sparkle`
 
