@@ -162,6 +162,31 @@ Now re-create the indexes:
 You can also use `--only-tables` but the process itself sleeps pretty much all the time, as PostgreSQL is doing the hard work. Indexes here will be created in parallel where possible directly from within the process, and linearly when it is known that postgres would lock otherwise.
 
 
+## Benchmark
+
+Here are a few durations, as the worst casetimings (worst case of each parallel job) and storage size estimates when running it on GCP,
+Here is a sample run for this Subgraph, from block `6,809,700` to `9,000,000`, on GCP, split into **160** parallel jobs (in stages 1-4)
+
+The following durations are the worst case from all the **160** parallel jobs at each stage:
+
+* **Stage 1** duration: 5 minutes, produced: 412.0 MiB of data (pairs)
+* **Stage 2** duration: 8 minutes 33 seconds, produced: 21.61 GiB of data (pair reserves)
+* **Stage 3** duration: 34 minutes, produced: 31.21 GiB of data (price computations)
+* **Stage 4** duration: 42 minutes, produced: 512.22 GiB of data (output of all entities to JSON)
+
+The following duration is for the worst case of the Entities (Swap):
+
+* **to-csv** duration: 157 minutes (2h37m), produced: 242.27 GiB of data (CSV files ready to be injected in postgres)
+
+The following duration is for the worst case of the Entities during injection (Swap), with all indexes dropped before injection:
+
+* **inject** duration: 40 minutes
+
+The following duration is the worst case of the Entities, provided you have more than 640GB of RAM. Otherwise, you might want to split the load in two (taking twice the time):
+
+* **create-indexes** duration: 4 hours
+
+
 ## Updating `sparkle`
 
 Generate using `sparkle` (see https://github.com/streamingfast/sparkle)
