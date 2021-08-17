@@ -43,7 +43,7 @@ You will find the `VERSION` printed when you `deploy` the subgraph.
 
 These are approximate commands to run the full flow:
 
-1. Stage 1
+#### Stage 1
 
 ```
 ./pancakeswap-exchange parallel step \
@@ -57,11 +57,13 @@ These are approximate commands to run the full flow:
 
 The `./path/to/blocks` represents the firehose merged blocks files.  They will be consumed directly and do not require a running `firehose` service.
 
+Paths for `--blocks-store-url`, `--input-path` and `--output-path` use the [dstore library](https://github.com/streamingfast/dstore) which supports S3, Azure, GCP and filesystems.
+
 You will then adjust the `--start-block` and `--stop-block` and repeat the process until you cover the desired chain segment (as close to the chain tip as possible). Both parameters are inclusive, so do not overlap.
 
 These processes can be run in parallel.
 
-2. Stage 2
+#### Stage 2
 
 ```
 ./pancakeswap-exchange parallel step \
@@ -76,11 +78,11 @@ These processes can be run in parallel.
 
 Again, repeat with adjusted start/stop blocks.  Ensure Stage 1 is fully complete before starting Stage 2.
 
-3. Stage 3 is same as Stage 2
+#### Stage 3 is same as Stage 2
 
 Simply adjust `--step`, `--input-path` and `--output-path`
 
-4. Stage 4 is slightly different:
+#### Stage 4 is slightly different:
 
 ```
 ./pancakeswap-exchange parallel step \
@@ -100,7 +102,7 @@ This one will write entities for _each single block_, not only a snapshot at the
 At this moment, you can inspect the files in `./path/to/entities` for data quality.  These are the values that will end up in PostgreSQL in the next steps. But you can iterate on your process faster if you discover data quality issues at this stage.  You can also be selective as to which stages and which segments you really need to re-run if you tweak the handler code.
 
 
-5. Next step is to create the CSV files (`to-csv` command).
+#### Next step is to create the CSV files (`to-csv` command).
 
 These will split the workload on a _different axis_: one process per entities collection. So the worst case timing in this operation will be the largest table (with the most rows or most data).
 
@@ -117,7 +119,7 @@ Notice the `--only-tables` here, that allows you to limit the tables that will b
 
 The `--chunk-size` specifies where to chunk the `.csv` files. This only scopes the size of the _postgres transaction_ when you to injecting into postgres, as each file will be able to be added atomically in the RDBMS. If one fails, you'll know sooner, and you can retry it without retrying one huge .csv file.
 
-6. Drop indexes
+#### Drop indexes
 
 Truncating the target tables is required to avoid duplicate data.
 
@@ -132,7 +134,7 @@ Dropping the indexes will ensure the fastest injection time possible:
 This method also supports `--only-tables` but its quite fast so you shouldn't need to parallelize it.
 
 
-7. Inject into PostgreSQL
+#### Inject into PostgreSQL
 
 Once the csv files are all generated, next step is to `inject` into PostgreSQL:
 
@@ -147,7 +149,7 @@ Once the csv files are all generated, next step is to `inject` into PostgreSQL:
 
 Here again, you can parallelize the injection and maximize the throughput in PostgreSQL, and use all the available cores.  The inject method uses the fastest injection method available: `COPY FROM` and pipine the CSV through.
 
-8. Re-create indexes
+#### Re-create indexes
 
 Now re-create the indexes:
 
