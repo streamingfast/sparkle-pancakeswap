@@ -6,6 +6,7 @@ secrets.go
 
 /localblocks
 /step*-v*
+/stepcsvs
 /exported
 /entities
 /csvs

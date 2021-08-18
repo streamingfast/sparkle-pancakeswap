@@ -20,16 +20,16 @@ EOC
 fi
 
 function step1() {
-    INFO=.* exchange parallel step -s 1 --output-path ./step1-v1 --start-block $1 --stop-block $2 --blocks-store-url $STOREURL &
+    DEBUG=.* exchange parallel step -s 1 --output-path ./step1-v1 --start-block $1 --stop-block $2 --blocks-store-url $STOREURL --enable-poi&
 }
 function step2() {
-    INFO=.* exchange parallel step -s 2 --input-path ./step1-v1 --output-path ./step2-v1 --start-block $1 --stop-block $2 --blocks-store-url $STOREURL &
+    DEBUG=.* exchange parallel step -s 2 --input-path ./step1-v1 --output-path ./step2-v1 --start-block $1 --stop-block $2 --blocks-store-url $STOREURL --enable-poi &
 }
 function step3() {
-    INFO=.* exchange parallel step -s 3 --input-path ./step2-v1 --output-path ./step3-v1 --start-block $1 --stop-block $2 --blocks-store-url $STOREURL &
+    DEBUG=.* exchange parallel step -s 3 --input-path ./step2-v1 --output-path ./step3-v1 --start-block $1 --stop-block $2 --blocks-store-url $STOREURL --enable-poi &
 }
 function step4() {
-    INFO=.* exchange parallel step -s 4 --flush-entities --store-snapshot=false --input-path ./step3-v1 --output-path ./step4-v1  --start-block $1 --stop-block $2  --blocks-store-url $STOREURL  &
+    DEBUG=.* exchange parallel step -s 4 --flush-entities --store-snapshot=false --input-path ./step3-v1 --output-path ./step4-v1  --start-block $1 --stop-block $2  --blocks-store-url $STOREURL  --enable-poi &
 }
 
 
@@ -43,9 +43,9 @@ main() {
       echo "LAUNCHING STEP 1"
       rm -rf ./step1-v1
 
-      step1 6809700 6829699
-      step1 6829700 6849699
-      step1 6849700 6889699
+      step1 7000000 7000009
+      step1 7000010 7000019
+      step1 7000020 7000029
 
       for job in `jobs -p`; do
           echo "Waiting on $job"
@@ -59,9 +59,9 @@ main() {
       echo "LAUNCHING STEP 2"
       rm -rf ./step2-v1
 
-      step2 6809700 6829699
-      step2 6829700 6849699
-      step2 6849700 6889699
+      step2 7000000 7000009
+      step2 7000010 7000019
+      step2 7000020 7000029
 
       for job in `jobs -p`; do
           echo "Waiting on $job"
@@ -75,9 +75,9 @@ main() {
       echo "LAUNCHING STEP 3"
       rm -rf ./step3-v1
 
-      step3 6809700 6829699
-      step3 6829700 6849699
-      step3 6849700 6889699
+      step3 7000000 7000009
+      step3 7000010 7000019
+      step3 7000020 7000029
 
       for job in `jobs -p`; do
           echo "Waiting on $job"
@@ -91,9 +91,9 @@ main() {
       echo "LAUNCHING STEP 4"
       rm -rf ./step4-v1
 
-      step4 6809737 6810736
-      step4 6810737 6811736
-#      step4  6811737 6812737
+      step4 7000000 7000009
+      step4 7000010 7000019
+      step4 7000020 7000029
 
       for job in `jobs -p`; do
           echo "Waiting on $job"
@@ -105,7 +105,7 @@ main() {
       echo "SKIPPING STEP CSV"
     else
       echo "Exporting to csv"
-      INFO=.* exchange parallel to-csv --input-path ./step4-v1 --output-path ./stepcsvs --chunk-size 1000
+      DEBUG=.* exchange parallel to-csv --only-tables "poi2\$" --input-path ./step4-v1 --output-path ./stepcsvs --chunk-size 1000
     fi
   popd &> /dev/null
 }
