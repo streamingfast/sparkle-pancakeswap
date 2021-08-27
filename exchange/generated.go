@@ -4014,9 +4014,8 @@ func (i *TestIntrinsics) StepAbove(step int) bool {
 	return i.step > step
 }
 
-func (i *TestIntrinsics) GetTokenInfo(address eth.Address, validate subgraph.TokenValidator) (*eth.Token, bool) {
-	tok := i.tokens[address.Pretty()]
-	return tok, validate(tok)
+func (i *TestIntrinsics) RPC(_ []*subgraph.RPCCall) ([]*subgraph.RPCResponse, error) {
+	return nil, nil
 }
 
 type TestCase struct {
