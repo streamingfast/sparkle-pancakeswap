@@ -29,7 +29,10 @@ function step3() {
     DEBUG=.* exchange parallel step -s 3 --input-path ./step2-v1 --output-path ./step3-v1 --start-block $1 --stop-block $2 --blocks-store-url $STOREURL&
 }
 function step4() {
-    DEBUG=.* exchange parallel step -s 4 --flush-entities --store-snapshot=false --input-path ./step3-v1 --output-path ./step4-v1  --start-block $1 --stop-block $2  --blocks-store-url $STOREURL  --enable-poi &
+    DEBUG=.* exchange parallel step -s 4 --input-path ./step3-v1 --output-path ./step4-v1 --start-block $1 --stop-block $2 --blocks-store-url $STOREURL&
+}
+function step5() {
+    DEBUG=.* exchange parallel step -s 5 --flush-entities --store-snapshot=false --input-path ./step4-v1 --output-path ./step5-v1  --start-block $1 --stop-block $2  --blocks-store-url $STOREURL  --enable-poi &
 }
 
 
@@ -94,6 +97,22 @@ main() {
       step4 7000000 7000009
       step4 7000010 7000019
       step4 7000020 7000029
+
+      for job in `jobs -p`; do
+          echo "Waiting on $job"
+          wait $job
+      done
+    fi
+
+    if [ "$1" != "" ] && [ "$1" != 5 ]; then
+      echo "SKIPPING STEP 5"
+    else
+      echo "LAUNCHING STEP 5"
+      rm -rf ./step5-v1
+
+      step5 7000000 7000009
+      step5 7000010 7000019
+      step5 7000020 7000029
 
       for job in `jobs -p`; do
           echo "Waiting on $job"
