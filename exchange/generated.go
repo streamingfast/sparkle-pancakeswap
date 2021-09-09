@@ -1254,7 +1254,7 @@ type TokenDayData @entity {
 		case *DynamicDataSourceXXX:
 			return new
 		}
-		panic(fmt.Sprintf("unsupported merge type: %s", new))
+		panic("unsupported merge type")
 	},
 }
 
@@ -4015,6 +4015,10 @@ func (i *TestIntrinsics) Block() subgraph.BlockRef {
 		num:       1,
 		timestamp: time.Time{},
 	}
+}
+
+func (i *TestIntrinsics) Step() int {
+	return i.step
 }
 
 func (i *TestIntrinsics) StepBelow(step int) bool {
