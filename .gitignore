@@ -5,6 +5,7 @@ secrets.go
 /sparkle
 
 /localblocks
+/localrpccache
 /step*-v*
 /stepcsvs
 /exported
