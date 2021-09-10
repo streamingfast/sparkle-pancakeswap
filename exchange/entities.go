@@ -51,3 +51,11 @@ func (e *Transaction) IsFinal(blockNum uint64, blockTime time.Time) bool {
 func (e *Swap) IsFinal(blockNum uint64, blockTime time.Time) bool {
 	return true
 }
+
+func (*Mint) IsFinal(uint64, time.Time) bool {
+	return true
+}
+
+func (*Burn) IsFinal(uint64, time.Time) bool {
+	return true
+}
