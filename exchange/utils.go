@@ -88,6 +88,7 @@ var whitelist = []string{
 	"0x23396cf899ca06c4472205fc903bdb4de249d6fc", // UST
 	"0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c", // BTCB
 	"0x2170ed0880ac9a755fd29b2688956bd959f933f8", // WETH
+	"0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82", // CAKE
 }
 
 var whitelistCacheMap = map[string]bool{}
