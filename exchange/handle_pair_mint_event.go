@@ -78,6 +78,8 @@ func (s *Subgraph) HandlePairMintEvent(ev *PairMintEvent) error {
 	}
 
 	sender := ev.Sender.Pretty()
+	from := ev.Transaction.From.Pretty()
+	mint.Origin = &from
 	mint.Sender = &sender
 	mint.Amount0 = F(token0Amount).Ptr()
 	mint.Amount1 = F(token1Amount).Ptr()
