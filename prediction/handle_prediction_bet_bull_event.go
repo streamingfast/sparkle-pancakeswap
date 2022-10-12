@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/streamingfast/sparkle/entity"
-	pbcodec "github.com/streamingfast/sparkle/pb/sf/ethereum/codec/v1"
+	pbcodec "github.com/streamingfast/sparkle/pb/sf/ethereum/type/v2"
 )
 
 func (s *Subgraph) HandlePredictionBetBullEvent(trace *pbcodec.TransactionTrace, ev *PredictionBetBullEvent) error {
