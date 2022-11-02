@@ -121,6 +121,9 @@ type Mint @entity {
   to: String! @parallel(step: 4)
   liquidity: BigDecimal! @parallel(step: 4)
 
+  # the EOA that initiated the txn
+  origin: String @parallel(step: 4)
+
   # populated from the Mint event
   sender: String @parallel(step: 4)
   amount0: BigDecimal @parallel(step: 4)

@@ -246,6 +246,9 @@ type Mint @entity {
   to: String! @parallel(step: 4)
   liquidity: BigDecimal! @parallel(step: 4)
 
+  # the EOA that initiated the txn
+  origin: String @parallel(step: 4)
+
   # populated from the Mint event
   sender: String @parallel(step: 4)
   amount0: BigDecimal @parallel(step: 4)
@@ -1513,6 +1516,7 @@ type Mint struct {
 	Token1       string        `db:"token_1" csv:"token_1"`
 	To           string        `db:"to" csv:"to"`
 	Liquidity    entity.Float  `db:"liquidity" csv:"liquidity"`
+	Origin       *string       `db:"origin,nullable" csv:"origin"`
 	Sender       *string       `db:"sender,nullable" csv:"sender"`
 	Amount0      *entity.Float `db:"amount_0,nullable" csv:"amount_0"`
 	Amount1      *entity.Float `db:"amount_1,nullable" csv:"amount_1"`
@@ -1543,6 +1547,7 @@ func (next *Mint) Merge(step int, cached *Mint) {
 			next.Token1 = cached.Token1
 			next.To = cached.To
 			next.Liquidity = cached.Liquidity
+			next.Origin = cached.Origin
 			next.Sender = cached.Sender
 			next.Amount0 = cached.Amount0
 			next.Amount1 = cached.Amount1
@@ -2629,6 +2634,8 @@ create table if not exists %%SCHEMA%%.mint
 
 	"liquidity" numeric not null,
 
+	"origin" text,
+
 	"sender" text,
 
 	"amount_0" numeric,
@@ -3236,6 +3243,11 @@ alter table only %%SCHEMA%%.token_day_data alter column vid SET DEFAULT nextval(
 		indexes = append(indexes, &index{
 			createStatement: `create index if not exists mint_liquidity on %%SCHEMA%%.mint using btree ("liquidity");`,
 			dropStatement:   `drop index if exists %%SCHEMA%%.mint_liquidity;`,
+		})
+
+		indexes = append(indexes, &index{
+			createStatement: `create index if not exists mint_origin on %%SCHEMA%%.mint ("left"("origin", 256));`,
+			dropStatement:   `drop index if exists %%SCHEMA%%.mint_origin;`,
 		})
 
 		indexes = append(indexes, &index{
